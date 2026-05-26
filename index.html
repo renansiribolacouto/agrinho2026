@@ -3,49 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal AgroSustentável</title>
-    <link rel="stylesheet" href="style.css">
+    <title>AgroSustentável | Futuro em Equilíbrio</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Agro Forte, Futuro Sustentável</h1>
-        <p>O equilíbrio perfeito entre a produção agrícola e a conservação do meio ambiente.</p>
+
+    <header class="navbar">
+        <div class="container">
+            <h1 class="logo">Agro<span>Sustentável</span></h1>
+        </div>
     </header>
 
     <main>
-        <section id="informacoes">
-            <h2>Boas Práticas no Campo</h2>
-            <div class="cards-container">
+        <section class="hero">
+            <div class="container">
+                <h2>O equilíbrio entre a produção e o meio ambiente</h2>
+                <p>Conheça as tecnologias que estão transformando o campo brasileiro em um exemplo mundial de sustentabilidade.</p>
+            </div>
+        </section>
+
+        <section class="content-cards">
+            <div class="container grid">
                 <div class="card">
-                    <h3>Rotação de Culturas</h3>
-                    <p>Alternar diferentes tipos de plantio na mesma área ajuda a preservar os nutrientes do solo e a quebrar o ciclo de pragas naturais.</p>
+                    <div class="card-line"></div>
+                    <h3>Gestão de Recursos</h3>
+                    <p>A otimização do uso da água e o manejo correto do solo garantem a produtividade das futuras gerações.</p>
                 </div>
                 <div class="card">
-                    <h3>Plantio Direto</h3>
-                    <p>A técnica de semear sem revirar o solo e mantendo a palhada anterior protege a terra contra a erosão e mantém a umidade natural.</p>
+                    <div class="card-line"></div>
+                    <h3>Tecnologia Verde</h3>
+                    <p>O uso de biodefensivos e monitoramento por satélite reduz o impacto ambiental e aumenta a eficiência.</p>
+                </div>
+                <div class="card">
+                    <div class="card-line"></div>
+                    <h3>Preservação Ativa</h3>
+                    <p>Áreas de proteção aliadas a lavouras produtivas criam corredores de biodiversidade essenciais para o ecossistema.</p>
                 </div>
             </div>
         </section>
 
-        <section id="interacao">
-            <h2>Teste seus Conhecimentos</h2>
-            <div id="quiz-container">
-                <h3 id="contador-perguntas">Pergunta 1</h3>
-                <p id="pergunta">Carregando pergunta...</p>
-                
-                <div id="opcoes-container" class="botoes-quiz"></div>
+        <section class="quiz-section">
+            <div class="container">
+                <div class="quiz-wrapper">
+                    <div class="quiz-header">
+                        <span id="quiz-step">Desafio de Conhecimento</span>
+                        <h2 id="quiz-question">Carregando pergunta...</h2>
+                    </div>
+                    
+                    <div id="options-container" class="options-grid">
+                        </div>
 
-                <p id="resultado"></p>
-                
-                <button id="btn-proxima" class="btn-acao" style="display: none;">Próxima Pergunta</button>
+                    <div id="quiz-feedback" class="feedback-box"></div>
+                    
+                    <div class="quiz-footer">
+                        <button id="next-btn" class="btn-primary" style="display: none;">Próxima Etapa</button>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>Projeto desenvolvido para o Concurso Agrinho 2026 - Categoria Programação Front-End.</p>
+    <footer class="main-footer">
+        <div class="container">
+            <p>Concurso Agrinho 2026 - CEC Princesa Isabel - NRE Assis Chateaubriand</p>
+            <p class="credits">Desenvolvido por Lorrainy Gabrielly Lucié Cares</p>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
