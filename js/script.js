@@ -1,139 +1,147 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. O Banco de Dados das Perguntas (Array de Objetos)
-    // Para adicionar mais perguntas, basta adicionar um novo bloco com chaves {} aqui dentro.
-    const bancoDePerguntas = [
+    // Atualizado com 5 perguntas sobre sustentabilidade agrícola
+    const quizData = [
         {
-            pergunta: "Qual destas práticas é considerada uma ação de agricultura sustentável para preservar o solo a longo prazo?",
+            pergunta: "Qual o principal benefício do sistema Lavoura-Pecuária-Floresta (ILPF)?",
             opcoes: [
-                "Desmatamento de Novas Áreas",
-                "Uso exclusivo de fertilizantes químicos",
-                "Rotação de Culturas",
-                "Queimadas para limpar o terreno"
+                "Redução drástica do uso de sementes",
+                "Otimização do uso da terra e recuperação de pastagens",
+                "Fim completo da necessidade de irrigação",
+                "Aumento do consumo de defensivos agrícolas"
             ],
-            respostaCorreta: 2, // O índice da resposta certa (lembre-se, a contagem começa no 0)
-            explicacao: "A rotação de culturas é fundamental para não esgotar os nutrientes da terra."
+            correta: 1,
+            info: "O ILPF integra diferentes sistemas produtivos para melhorar a saúde do solo e o bem-estar animal."
         },
         {
-            pergunta: "O que é o sistema de Plantio Direto?",
+            pergunta: "Como a agricultura de precisão contribui para a sustentabilidade?",
             opcoes: [
-                "Plantar sementes sem revirar o solo, mantendo a palhada anterior",
-                "Plantar sem o uso de qualquer tipo de irrigação",
-                "Plantar sementes diretamente em rios",
-                "Plantar a mesma cultura durante o ano inteiro"
+                "Substituindo toda a mão de obra humana por robôs",
+                "Utilizando aviões para irrigação em larga escala",
+                "Aplicando insumos apenas onde e quando são necessários",
+                "Aumentando a área de desmatamento para novas plantações"
             ],
-            respostaCorreta: 0,
-            explicacao: "O plantio direto protege o solo contra a erosão, usando a palha da colheita passada como proteção."
+            correta: 2,
+            info: "Sensores e dados permitem que o produtor economize recursos e proteja o meio ambiente."
         },
         {
-            pergunta: "A sigla ILPF refere-se a uma tecnologia sustentável importante. O que ela significa?",
+            pergunta: "Qual é a principal vantagem da Rotação de Culturas?",
             opcoes: [
-                "Índice Local de Plantação e Fertilização",
-                "Integração Lavoura-Pecuária-Floresta",
-                "Instituto de Limpeza de Pastos e Fazendas",
-                "Irrigação Livre Para Florestas"
+                "Quebrar o ciclo de pragas e melhorar a fertilidade do solo",
+                "Esgotar rapidamente os nutrientes de uma área",
+                "Eliminar totalmente a necessidade de luz solar",
+                "Diminuir a diversidade biológica da lavoura"
             ],
-            respostaCorreta: 1,
-            explicacao: "A Integração Lavoura-Pecuária-Floresta otimiza o uso da terra, combinando árvores, pasto e gado no mesmo espaço."
+            correta: 0,
+            info: "Alternar diferentes tipos de plantas na mesma área evita a exaustão do solo e reduz doenças naturais."
+        },
+        {
+            pergunta: "Por que o Sistema de Plantio Direto (SPD) é considerado uma prática conservacionista?",
+            opcoes: [
+                "Porque exige a queima da vegetação antes de plantar",
+                "Porque revolve intensamente a terra com tratores pesados",
+                "Porque mantém a palha na superfície, protegendo o solo contra a erosão",
+                "Porque consome muito mais água do que o método tradicional"
+            ],
+            correta: 2,
+            info: "A palhada na superfície funciona como um escudo protetor que retém a umidade e evita que a chuva lave os nutrientes."
+        },
+        {
+            pergunta: "O que caracteriza o controle biológico de pragas no campo?",
+            opcoes: [
+                "A aplicação de agrotóxicos em grandes quantidades",
+                "O uso de inimigos naturais (como outros insetos e fungos) para combater a praga",
+                "A destruição de todas as árvores ao redor da plantação",
+                "A substituição de sementes naturais por artificiais"
+            ],
+            correta: 1,
+            info: "O controle biológico usa a própria natureza a favor da lavoura, diminuindo a necessidade de defensivos químicos."
         }
     ];
 
-    // 2. Variáveis de controle do jogo
-    let indicePerguntaAtual = 0;
-    let acertos = 0;
+    let currentIdx = 0;
+    let score = 0;
 
-    // 3. Mapeando os elementos do HTML
-    const elementoPergunta = document.getElementById("pergunta");
-    const containerOpcoes = document.getElementById("opcoes-container");
-    const elementoResultado = document.getElementById("resultado");
-    const btnProxima = document.getElementById("btn-proxima");
-    const elementoContador = document.getElementById("contador-perguntas");
+    const questionEl = document.getElementById("quiz-question");
+    const optionsCont = document.getElementById("options-container");
+    const feedbackBox = document.getElementById("quiz-feedback");
+    const nextBtn = document.getElementById("next-btn");
 
-    // 4. Função para mostrar a pergunta na tela
-    function carregarPergunta() {
-        // Pega a pergunta atual baseada no índice
-        const perguntaAtual = bancoDePerguntas[indicePerguntaAtual];
+    function initQuiz() {
+        feedbackBox.style.display = "none";
+        nextBtn.style.display = "none";
         
-        // Atualiza textos na tela
-        elementoContador.textContent = `Pergunta ${indicePerguntaAtual + 1} de ${bancoDePerguntas.length}`;
-        elementoPergunta.textContent = perguntaAtual.pergunta;
-        
-        // Limpa o container e o resultado anterior
-        containerOpcoes.innerHTML = "";
-        elementoResultado.textContent = "";
-        btnProxima.style.display = "none";
+        const q = quizData[currentIdx];
+        // Atualiza o contador de etapas (Ex: Pergunta 1 de 5)
+        document.getElementById("quiz-step").textContent = `Pergunta ${currentIdx + 1} de ${quizData.length}`;
+        questionEl.textContent = q.pergunta;
+        optionsCont.innerHTML = "";
 
-        // Cria os botões de opção dinamicamente
-        perguntaAtual.opcoes.forEach(function(textoOpcao, index) {
-            const botao = document.createElement("button");
-            botao.textContent = textoOpcao;
-            botao.classList.add("btn-resposta");
-            
-            // Adiciona o evento de clique para verificar a resposta
-            botao.addEventListener("click", function() {
-                verificarResposta(index);
-            });
-            
-            containerOpcoes.appendChild(botao);
+        q.opcoes.forEach((opt, index) => {
+            const btn = document.createElement("button");
+            btn.classList.add("option-btn");
+            btn.textContent = opt;
+            btn.onclick = () => checkAnswer(index);
+            optionsCont.appendChild(btn);
         });
     }
 
-    // 5. Função que verifica se o aluno clicou na opção certa
-    function verificarResposta(indiceClicado) {
-        const perguntaAtual = bancoDePerguntas[indicePerguntaAtual];
-        const botoes = document.querySelectorAll(".btn-resposta");
+    function checkAnswer(selected) {
+        const q = quizData[currentIdx];
+        const buttons = document.querySelectorAll(".option-btn");
+        
+        buttons.forEach(b => b.disabled = true);
 
-        // Desativa todos os botões para não clicar duas vezes
-        botoes.forEach(btn => btn.disabled = true);
+        feedbackBox.style.display = "block";
+        feedbackBox.textContent = q.info;
 
-        if (indiceClicado === perguntaAtual.respostaCorreta) {
-            elementoResultado.textContent = "✅ Correto! " + perguntaAtual.explicacao;
-            elementoResultado.style.color = "#2e7d32";
-            botoes[indiceClicado].style.backgroundColor = "#4caf50";
-            botoes[indiceClicado].style.color = "white";
-            acertos++;
+        if (selected === q.correta) {
+            score++;
+            buttons[selected].style.background = "#E8F5E9";
+            buttons[selected].style.borderColor = "#2E7D32";
+            feedbackBox.style.color = "#1B5E20";
         } else {
-            elementoResultado.textContent = "❌ Incorreto. " + perguntaAtual.explicacao;
-            elementoResultado.style.color = "#c62828";
-            botoes[indiceClicado].style.backgroundColor = "#ef5350";
-            botoes[indiceClicado].style.color = "white";
-            
-            // Pinta a resposta que seria a correta de verde para o usuário aprender
-            botoes[perguntaAtual.respostaCorreta].style.backgroundColor = "#4caf50";
-            botoes[perguntaAtual.respostaCorreta].style.color = "white";
+            buttons[selected].style.background = "#FFEBEE";
+            buttons[selected].style.borderColor = "#C62828";
+            buttons[q.correta].style.background = "#E8F5E9";
+            feedbackBox.style.color = "#C62828";
         }
 
-        // Mostra o botão para ir para a próxima etapa
-        btnProxima.style.display = "inline-block";
+        nextBtn.style.display = "block";
     }
 
-    // 6. Evento de clique para ir para a próxima pergunta
-    btnProxima.addEventListener("click", function() {
-        indicePerguntaAtual++; // Passa para a próxima pergunta
-
-        if (indicePerguntaAtual < bancoDePerguntas.length) {
-            carregarPergunta(); // Carrega a próxima
+    nextBtn.onclick = () => {
+        currentIdx++;
+        if (currentIdx < quizData.length) {
+            initQuiz();
         } else {
-            mostrarResultadoFinal(); // Se acabaram as perguntas, mostra o placar
+            showFinalResult();
         }
-    });
+    };
 
-    // 7. Tela Final do Quiz
-    function mostrarResultadoFinal() {
-        elementoContador.textContent = "Quiz Finalizado!";
-        elementoPergunta.textContent = `Você acertou ${acertos} de ${bancoDePerguntas.length} perguntas.`;
-        containerOpcoes.innerHTML = ""; // Some com as opções
-        btnProxima.style.display = "none";
-
-        if (acertos === bancoDePerguntas.length) {
-            elementoResultado.textContent = "🏆 Excelente! Você é um especialista em agricultura sustentável!";
-            elementoResultado.style.color = "#2e7d32";
+    function showFinalResult() {
+        questionEl.textContent = "Avaliação Concluída";
+        
+        // Mensagem dinâmica baseada na pontuação
+        let mensagemFinal = "";
+        if (score === quizData.length) {
+            mensagemFinal = "Excelente! Você é um verdadeiro especialista em sustentabilidade no campo.";
+        } else if (score >= 3) {
+            mensagemFinal = "Muito bom! Você tem um ótimo conhecimento sobre o agronegócio do futuro.";
         } else {
-            elementoResultado.textContent = "🌱 Bom trabalho! Continue estudando para tornar o Agro cada vez mais forte e sustentável.";
-            elementoResultado.style.color = "#f57c00";
+            mensagemFinal = "Bom começo! Continue explorando o portal para aprender mais sobre o agronegócio sustentável.";
         }
+
+        optionsCont.innerHTML = `
+            <div style="text-align:center; padding: 20px;">
+                <h3 style="color: var(--primary); font-size: 2rem; margin-bottom: 10px;">${score} / ${quizData.length}</h3>
+                <p style="font-size: 1.1rem;">${mensagemFinal}</p>
+            </div>
+        `;
+        feedbackBox.style.display = "none";
+        nextBtn.style.display = "none";
+        document.getElementById("quiz-step").textContent = "Resultado Final";
     }
 
-    // Inicializa o quiz carregando a primeira pergunta
-    carregarPergunta();
+    initQuiz();
 });
