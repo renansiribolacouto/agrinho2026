@@ -24,11 +24,11 @@ Acreditamos que a união entre educação e tecnologia é o melhor caminho para 
 
 ## Tecnologias Utilizadas
 
-Para cumprir rigorosamente as regras do edital do Concurso Agrinho, este projeto foi desenvolvido do zero, utilizando apenas tecnologias nativas da web (Vanilla), sem o uso de frameworks externos.
+Para cumprir rigorosamente as regras do edital do Concurso Agrinho, este projeto foi desenvolvido do zero, utilizando apenas tecnologias nativas da web, sem o uso de frameworks externos.
 
 | Tecnologia | Aplicação no Projeto |
 | :--- | :--- |
-| **HTML5** | Estruturação semântica, organização do conteúdo e textos (`index.html`). |
+| **HTML5** | Estruturação, organização do conteúdo e textos (`index.html`). |
 | **CSS3** | Estilização visual, paleta de cores, layout e responsividade (`style.css`). |
 | **JavaScript** | Lógica de programação do quiz e interatividade com o usuário (`script.js`). |
 
@@ -38,15 +38,14 @@ Para cumprir rigorosamente as regras do edital do Concurso Agrinho, este projeto
 
 O projeto está hospedado em nuvem e pronto para uso através do GitHub Pages. Não é necessário realizar nenhum download para testar a aplicação.
 
-**Link de Acesso:** [https://valdemirdutra.github.io/agrinho-2026-portal-sustentavel/]
+**Link de Acesso:** [https://renansiribolacouto.github.io/agrinho2026/]
 
-*(Nota: Para executar o projeto localmente, faça o download deste repositório e abra o arquivo `index.html` em qualquer navegador web).*
 
 ---
 
 ## Autoria
 
-* **Aluno(a):** Lorrainy Gabrielly Lucié Cares
+* **Aluno(a):** RENAN SIRIBOLA DO COUTO
 * **Série:** 1ª Série do Ensino Médio
 * **Professor(a) Orientador(a):** Valdemir Souza Dutra
 * **Instituição de Ensino:** CEC PRINCESA ISABEL
